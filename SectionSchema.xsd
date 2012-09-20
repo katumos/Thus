@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+            targetNamespace="http://www.sbsa.gov.uk/XMLSYS/Handbook#1" 
+            xmlns:my="http://www.sbsa.gov.uk/XMLSYS/Handbook#1" >
+  <xsd:include schemaLocation="ChapterSchema.xsd" />
+  <xsd:element name="Section">
+    <xsd:annotation>
+      <xsd:documentation>Binds chapters together as a section.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="my:SectionTitle" minOccurs="0" />
+        <xsd:element ref="my:SectionNo" minOccurs="0" />
+        <xsd:element ref="my:Chapters" minOccurs="0" />
+      </xsd:sequence>
+      <xsd:attribute name="handbookId" type="my:ContentId_t" use="required" />
+      <xsd:attribute name="sectionId" type="my:ContentId_t" use="required" />
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t" />
+    </xsd:complexType>
+  </xsd:element>
+	<xsd:element name="SectionTitle">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="my:Title_t">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t" />
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="SectionNo">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="my:NumberId_t">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t" />
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Chapters">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:Chapter" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t" />
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

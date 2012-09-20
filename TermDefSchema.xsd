@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema targetNamespace="http://www.sbsa.gov.uk/XMLSYS/Handbook#1" xmlns:my="http://www.sbsa.gov.uk/XMLSYS/Handbook#1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:include schemaLocation="TypesSchema.xsd"/>
+	<xsd:element name="DT_Appendix">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="my:DT_AppendixPrologue" minOccurs="1"/>
+        <xsd:element ref="my:DT_AppendixContent" minOccurs="1"/>
+      </xsd:sequence>
+      <xsd:attribute name="handbookType" type="my:HandbookType_t" use="required"/>
+      <xsd:attribute name="year" type="xsd:gYear" use="required"/>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DT_AppendixPrologue">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="my:DT_Caption" minOccurs="1"/>
+        <xsd:element ref="my:DT_AppendixLeader" minOccurs="0"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DT_Caption">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DT_AppendixLeader">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:DT_ParagraphText" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DT_ParagraphText">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DT_AppendixContent">
+    <xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:DT_DefinedTermItem" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DT_DefinedTermItem">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:DT_Term" minOccurs="1"/>
+				<xsd:element ref="my:DT_Description" minOccurs="1" maxOccurs="unbounded"/>
+				<xsd:element ref="my:DT_TermVariants" minOccurs="0"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DT_Term">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="type" use="optional" type="my:DefinedTermType_t" default="0"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DT_TermVariants" >
+    <xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:DT_TermVariant" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DT_TermVariant">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DT_Description">
+    <xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:DT_DescriptionText" minOccurs="1"/>
+				<xsd:element ref="my:DT_List" minOccurs="0"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DT_DescriptionText">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DT_List">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:DT_ListItem" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+			<xsd:attribute name="listType" default="0" type="my:ListType_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DT_ListItem">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+</xsd:schema>

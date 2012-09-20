@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema targetNamespace="http://www.sbsa.gov.uk/XMLSYS/Handbook#1" xmlns:my="http://www.sbsa.gov.uk/XMLSYS/Handbook#1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:include schemaLocation="TypesSchema.xsd"/>
+	<xsd:element name="BG_Appendix">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="my:BG_AppendixPrologue" minOccurs="1"/>
+        <xsd:element ref="my:BG_AppendixContent" minOccurs="1"/>
+      </xsd:sequence>
+      <xsd:attribute name="handbookType" type="my:HandbookType_t" use="required"/>
+      <xsd:attribute name="year" type="xsd:gYear" use="required"/>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_AppendixPrologue">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="my:BG_AppendixCaption" minOccurs="1"/>
+        <xsd:element ref="my:BG_AppendixLeader" minOccurs="0"/>
+        <xsd:element ref="my:BG_AppendixNotes" minOccurs="0"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_AppendixCaption">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_AppendixLeader">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:BG_ParagraphText" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_AppendixNotes">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:BG_AppendixNoteItem" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_AppendixNoteItem">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_ParagraphText">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_AppendixContent">
+    <xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:BG_BritishStandards" minOccurs="1" />
+				<xsd:element ref="my:BG_BSCodesOfPractice" minOccurs="1" />
+				<xsd:element ref="my:BG_EuropeanStandards" minOccurs="1" />
+				<xsd:element ref="my:BG_ESDrafts" minOccurs="1" />
+				<xsd:element ref="my:BG_Legislation" minOccurs="1" />
+				<xsd:element ref="my:BG_OtherPublications" minOccurs="1" />
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_BritishStandards">
+    <xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:BG_BritishStandardsCaption" minOccurs="1" />
+				<xsd:element ref="my:BG_BritishStandard" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element ref="my:BG_BritishStandardNote" minOccurs="0" />
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_BritishStandardsCaption">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_BritishStandard">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="Number" use="required" type="xsd:string"/>
+          <xsd:attribute name="Amended" use="required" type="xsd:string"/>
+          <xsd:attribute name="Section" use="required" type="xsd:string"/>
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_BritishStandardNote">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_BSCodesOfPractice">
+    <xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:BG_BSCodesOfPracticeCaption" minOccurs="1" />
+				<xsd:element ref="my:BG_BSCodesOfPracticeItem" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element ref="my:BG_BSCodesOfPracticeNote" minOccurs="0" />
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_BSCodesOfPracticeCaption">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_BSCodesOfPracticeItem">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="Number" use="required" type="xsd:string"/>
+          <xsd:attribute name="Amended" use="required" type="xsd:string"/>
+          <xsd:attribute name="Section" use="required" type="xsd:string"/>
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_BSCodesOfPracticeNote">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_EuropeanStandards">
+    <xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:BG_EuropeanStandardsCaption" minOccurs="1" />
+				<xsd:element ref="my:BG_EuropeanStandard" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element ref="my:BG_EuropeanStandardNote" minOccurs="0" />
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_EuropeanStandardsCaption">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_EuropeanStandard">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="Number" use="required" type="xsd:string"/>
+          <xsd:attribute name="Amended" use="required" type="xsd:string"/>
+          <xsd:attribute name="Section" use="required" type="xsd:string"/>
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_EuropeanStandardNote">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_ESDrafts">
+    <xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:BG_ESDraftsCaption" minOccurs="1" />
+				<xsd:element ref="my:BG_ESDraft" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element ref="my:BG_ESDraftsNote" minOccurs="0" />
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_ESDraftsCaption">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_ESDraft">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="Number" use="required" type="xsd:string"/>
+          <xsd:attribute name="Amended" use="required" type="xsd:string"/>
+          <xsd:attribute name="Section" use="required" type="xsd:string"/>
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_ESDraftsNote">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_Legislation">
+    <xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:BG_LegislationCaption" minOccurs="1" />
+				<xsd:element ref="my:BG_LegislationItem" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element ref="my:BG_LegislationNote" minOccurs="0" />
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_LegislationCaption">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_LegislationItem">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="Section" use="required" type="xsd:string"/>
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_LegislationNote">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_OtherPublications">
+    <xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:BG_OtherPublicationsCaption" minOccurs="1" />
+				<xsd:element ref="my:BG_OtherPublicationSection" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element ref="my:BG_OtherPublicationsNote" minOccurs="0" />
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_OtherPublicationsCaption">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_OtherPublicationSection">
+    <xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:BG_OtherPublicationSectionTitle" minOccurs="1" />
+				<xsd:element ref="my:BG_OtherPublication" minOccurs="0" maxOccurs="unbounded" />
+			</xsd:sequence>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_OtherPublicationSectionTitle">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_OtherPublication">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="Reference" use="required" type="xsd:string"/>
+          <xsd:attribute name="Publisher" use="required" type="xsd:string"/>
+          <xsd:attribute name="Section" use="required" type="xsd:string"/>
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BG_OtherPublicationsNote">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+</xsd:schema>

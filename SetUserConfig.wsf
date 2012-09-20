@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="Windows Script Host">
+	<job>
+	  <object id="xml_userconfig" progid="MSXML2.DOMDOCUMENT.5.0" reference="true" />
+		<script language="JavaScript">
+		
+		WScript.Echo( "" );
+
+    try
+    {
+      var root = WScript.ScriptFullName;
+
+      WScript.Echo( "Setting user config..." );     
+      var userconfig = new String( root ).replace( /SetUserConfig.wsf/, "userconfig.xml" );
+      WScript.Echo( userconfig );
+    
+      xml_userconfig.async = false;
+      xml_userconfig.validateOnParse = false;
+      xml_userconfig.load( userconfig );
+
+      if( xml_userconfig.parseError.errorCode != 0 )
+      {
+        throw new Error( xml_userconfig.parseError.errorCode, "XML User Configuration Parse Error: " + xml_userconfig.parseError.reason );
+      }
+      
+      var node = xml_userconfig.documentElement.selectSingleNode( "entry[key[text() = 'baseDir']]/value" );
+      node.text = new String( root ).replace( /SetUserConfig.wsf/, "" );
+      var node = xml_userconfig.documentElement.selectSingleNode( "entry[key[text() = 'fontBaseDir']]/value" );
+      node.text = new String( root ).replace( /SetUserConfig.wsf/, "Fonts" );
+      xml_userconfig.save( userconfig );
+
+      WScript.Echo( "...done.\n" );      
+		}
+		catch( e )
+		{
+      WScript.Echo( "\nException\n\t" + e.message + "\n\t0x" + toHex( e.number ) );
+      WScript.Quit( e.number );
+		}
+
+		// Convert decimal number to hexidecimal.
+		//
+    function toHex( number )
+    {
+      if( number > 0 )
+      {
+        return number.toString( 16 );
+      }
+      else
+      {
+        return( number + 0x100000000 ).toString( 16 );
+      }
+    }	
+		</script>
+	</job>
+</package>
+
+

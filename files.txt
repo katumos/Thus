@@ -1,0 +1,13 @@
+ChapterSchema.xsd
+EditView.xsl
+manifest.xsf
+RegManifest.wsf
+sampledata.xml
+script.js
+template.xml
+TypesSchema.xsd
+view1.xsl
+ChapterLayout.xsl
+TaskPane.html
+STD.xsl
+EditManifest.wsf

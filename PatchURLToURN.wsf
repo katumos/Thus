@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="Windows Script Host">
+	<job>
+	  <!--
+	  <object id="ip" progid="InfoPath.Application" reference="true" />
+	  -->
+	  <object id="xml" progid="MSXML2.DOMDOCUMENT.5.0" reference="true" />
+	  <object id="fso" progid="Scripting.FileSystemObject" reference="true" />
+	  <object id="shell" progid="WScript.Shell" reference="true" />
+	  
+		<script language="JavaScript">
+		<![CDATA[
+		
+		WScript.Echo( "" );
+
+    try
+    {
+      var root = WScript.ScriptFullName;
+      
+      var urn = "urn:DocumentEditor:SBSA";
+      var xsf = 'xmlns:xsf="http://schemas.microsoft.com/office/infopath/2003/solutionDefinition"';
+      
+      WScript.Echo( "Patching documents..." );
+      
+      var folder = fso.GetFolder( "." );
+
+      var file; var files = new Enumerator( folder.files );
+
+      var re = /^.*\.xml$/;
+
+      xml.async = false;
+      xml.validateOnParse = false;
+      xml.setProperty( "SelectionNamespaces", xsf );
+
+      for( ; !files.atEnd(); files.moveNext() )
+      {
+        file = files.item();
+        
+        if( re.test( file.Path ) )
+        {
+          WScript.Echo( "Examining: " + file.Path );
+          
+          xml.load( file.Path );
+
+          var pi = xml.documentElement.selectSingleNode( "/processing-instruction( 'mso-infoPathSolution' )" );
+          
+          if( pi )
+          {
+            WScript.Echo( "\tPatching: " + file.Path );
+            pi.text = new String( pi.text ).replace( /name="\S+"/, 'name="' + urn + '"' );
+            pi.text = new String( pi.text ).replace( /href="\S+"/, "" );
+            
+            xml.save( file.Path );
+          }
+        }
+      }
+      
+      WScript.Echo( "...done.\n" );      
+		}
+		catch( e )
+		{
+      WScript.Echo( "\nException\n\t" + e.message + "\n\t0x" + toHex( e.number ) );
+      WScript.Quit( e.number );
+		}
+
+		// Convert decimal number to hexidecimal.
+		//
+    function toHex( number )
+    {
+      if( number > 0 )
+      {
+        return number.toString( 16 );
+      }
+      else
+      {
+        return( number + 0x100000000 ).toString( 16 );
+      }
+    }	
+    
+    ]]>
+		</script>
+	</job>
+</package>
+
+

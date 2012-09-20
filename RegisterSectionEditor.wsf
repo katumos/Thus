@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="Windows Script Host">
+	<job>
+		<script language="JavaScript">
+		
+		WScript.Echo( "" );
+
+    try
+    {
+      var root = WScript.ScriptFullName;
+
+      WScript.Echo( "Registering 'SectionEditor' Form..." );     
+      var form = new String( root ).replace( /RegisterSectionEditor.wsf/, "SectionEditor.xsn" );
+      WScript.Echo( form );
+     
+      var ip = new ActiveXObject( "InfoPath.ExternalApplication" );
+      ip.RegisterSolution( form );
+      ip.Quit();
+     
+      WScript.Echo( "...done.\n" );      
+		}
+		catch( e )
+		{
+      WScript.Echo( "\nException\n\t" + e.message + "\n\t0x" + toHex( e.number ) );
+      WScript.Quit( e.number );
+		}
+
+		// Convert decimal number to hexidecimal.
+		//
+    function toHex( number )
+    {
+      if( number > 0 )
+      {
+        return number.toString( 16 );
+      }
+      else
+      {
+        return( number + 0x100000000 ).toString( 16 );
+      }
+    }	
+		</script>
+	</job>
+</package>
+
+

@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema targetNamespace="http://www.sbsa.gov.uk/XMLSYS/Handbook#1" xmlns:my="http://www.sbsa.gov.uk/XMLSYS/Handbook#1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:include schemaLocation="TypesSchema.xsd"/>
+  <xsd:element name="PageBreak" >
+		<xsd:complexType>
+      <xsd:attribute name="applyBreak" type="xsd:boolean" default="false"/>
+			<xsd:attribute name="bindable" fixed="false" type="xsd:boolean"/>
+		</xsd:complexType>
+  </xsd:element>
+  <xsd:element name="Document">
+		<xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="my:Handbook"/>
+      </xsd:sequence>
+      <xsd:attribute name="documentId" type="my:ContentId_t" use="required"/>
+		</xsd:complexType>
+  </xsd:element>
+  <xsd:element name="Handbook">
+		<xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="my:Section"/>
+      </xsd:sequence>
+      <xsd:attribute name="handbookId" type="my:ContentId_t" use="required"/>
+      <xsd:attribute name="handbookType" type="my:HandbookType_t" use="required"/>
+      <xsd:attribute name="year" type="xsd:gYear" use="required"/>
+		</xsd:complexType>
+  </xsd:element>
+  <xsd:element name="Section">
+		<xsd:complexType>
+      <xsd:sequence>
+				<xsd:element ref="my:SectionNo"/>
+				<xsd:element ref="my:SectionTitle"/>
+        <xsd:element ref="my:Chapter"/>
+      </xsd:sequence>
+      <xsd:attribute name="sectionId" type="my:ContentId_t" use="required"/>
+		</xsd:complexType>
+  </xsd:element>
+	<xsd:element name="SectionNo">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="my:NumberId_t">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="SectionTitle">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="my:Title_t">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Chapter">
+		<xsd:complexType>
+			<xsd:sequence>
+        <xsd:element ref="my:ChapterNo" minOccurs="0" />
+				<xsd:element ref="my:ChapterTitle" minOccurs="0"/>
+				<xsd:element ref="my:FunctionalStandard" minOccurs="0"/>
+				<xsd:element ref="my:Regulation" minOccurs="0"/>
+				<xsd:element ref="my:Clause" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="chapterId" type="my:ContentId_t" use="required"/>
+      <xsd:attribute name="chapterType" type="my:ChapterType_t" use="required"/>
+      <xsd:attribute name="formatStyle" type="my:FormatStyle_t" default="0"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ChapterNo">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="my:ChapterNo_t">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ChapterTitle">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="my:Title_t">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="FunctionalStandard">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:DefinitionText" minOccurs="0"/>
+				<xsd:element ref="my:Conditions" minOccurs="0"/>
+				<xsd:element ref="my:Limitations" minOccurs="0"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DefinitionText">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+	<xsd:element name="Conditions">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:ConditionText" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ConditionText">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+	<xsd:element name="Limitations">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:LimitationText" minOccurs="0"/>
+				<xsd:element ref="my:LimitationTerms" minOccurs="0"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="LimitationText">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+	<xsd:element name="LimitationTerms">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:LimitationTermText" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="LimitationTermText">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+	<xsd:element name="Regulation">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:RegulationText" minOccurs="0"/>
+				<xsd:element ref="my:RegulationCriteria" minOccurs="0" />
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="RegulationText">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+	<xsd:element name="RegulationCriteria">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:RegulationCriteriaItem" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="RegulationCriteriaItem">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:CriteriaText" minOccurs="0" />
+				<xsd:element ref="my:CriteriaItems" minOccurs="0" />
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CriteriaText">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+	<xsd:element name="CriteriaItems">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:CriteriaItemText" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CriteriaItemText">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+	<xsd:element name="Clause">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:ClauseNo" minOccurs="0"/>
+				<xsd:element ref="my:ClauseTitle" minOccurs="0"/>
+				<xsd:element ref="my:ClauseSubTitle" minOccurs="0"/>
+				<xsd:element ref="my:ClauseContent" minOccurs="0" />
+			</xsd:sequence>
+      <xsd:attribute name="clauseId" type="my:ContentId_t" use="required"/>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ClauseNo">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="my:NumberId_t">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ClauseTitle">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="my:Title_t">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+	<xsd:element name="ClauseSubTitle">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="my:Title_t">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+	<xsd:element name="ClauseContent" >
+    <xsd:complexType>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded" >
+        <xsd:element ref="my:Paragraph" />
+        <xsd:element ref="my:List" />
+        <xsd:element ref="my:Graphic" />
+        <xsd:element ref="my:Table" />
+        <xsd:element ref="my:PageBreak" />
+      </xsd:choice>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Paragraph">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:ParagraphHeader" minOccurs="0"/>
+				<xsd:element ref="my:ParagraphText" minOccurs="0"/>
+				<xsd:element ref="my:MarginReferences" minOccurs="0"/>
+			</xsd:sequence>
+      <xsd:attribute name="bindNext" use="optional" type="xsd:boolean"/>
+      <xsd:attribute name="bindNextWidth" use="optional" type="xsd:float"/>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+			<xsd:attribute name="bindable" fixed="true" type="xsd:boolean"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ParagraphHeader">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="inlineHeader" use="optional" type="xsd:boolean" default="false"/>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+          <xsd:attribute name="inlineHeader" use="optional" type="xsd:boolean" default="false"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+	<xsd:element name="ParagraphText">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+	<xsd:element name="MarginReferences">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:MarginReference" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="MarginReference">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="marginReferenceType" default="0" type="my:MarginReferenceType_t"/>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+	<xsd:element name="List">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:ListName" minOccurs="0"/>
+				<xsd:element ref="my:ListItem" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+			<xsd:attribute name="listType" default="0" type="my:ListType_t"/>
+      <xsd:attribute name="bindNext" use="optional" type="xsd:boolean"/>
+      <xsd:attribute name="bindNextWidth" use="optional" type="xsd:float"/>
+			<xsd:attribute name="bindable" fixed="true" type="xsd:boolean"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="NestedList">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:ListName" minOccurs="0"/>
+				<xsd:element ref="my:NestedListItem" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+			<xsd:attribute name="listType" default="0" type="my:ListType_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ListName">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+	<xsd:element name="ListItem">
+    <xsd:complexType>
+      <xsd:sequence>
+				<xsd:element ref="my:ListItemCaption" minOccurs="0"/>
+				<xsd:element ref="my:ListItemText" minOccurs="0" />
+				<xsd:element ref="my:MarginReferences" minOccurs="0"/>
+				<xsd:element ref="my:NestedList" minOccurs="0" />
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="NestedListItem">
+    <xsd:complexType>
+      <xsd:sequence>
+				<xsd:element ref="my:ListItemCaption" minOccurs="0"/>
+				<xsd:element ref="my:ListItemText" minOccurs="0" />
+				<xsd:element ref="my:MarginReferences" minOccurs="0"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ListItemCaption">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ListItemText">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+	<xsd:element name="Graphics">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:Graphic" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Graphic">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:GraphicCaption" minOccurs="0"/>
+				<xsd:element ref="my:GraphicData" minOccurs="0"/>
+			</xsd:sequence>
+      <xsd:attribute name="graphicType" default="0" type="my:GraphicType_t" />
+      <xsd:attribute name="width" default="1.00" type="xsd:float"/>
+      <xsd:attribute name="height" default="1.00" type="xsd:float"/>
+      <xsd:attribute name="align" default="0" type="my:Alignment_t"/>
+      <xsd:attribute name="valign" default="0" type="my:VerticalAlignment_t"/>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+      <xsd:attribute name="bindNext" use="optional" type="xsd:boolean"/>
+      <xsd:attribute name="bindNextWidth" use="optional" type="xsd:float"/>
+			<xsd:attribute name="bindable" fixed="true" type="xsd:boolean"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="GraphicCaption">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+  </xsd:element>
+	<xsd:element name="GraphicData">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:anyURI">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="Table" >
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:TableCaption" minOccurs="0"/>
+        <xsd:element ref="my:TableDimensions" minOccurs="0" />
+				<xsd:element ref="my:HtmlTableData" />
+				<xsd:element ref="my:TableNotes" minOccurs="0"/>
+			</xsd:sequence>
+      <xsd:attribute name="tableType" default="0" type="my:TableType_t" />
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+      <xsd:attribute name="bindNext" use="optional" type="xsd:boolean"/>
+      <xsd:attribute name="bindNextWidth" use="optional" type="xsd:float"/>
+			<xsd:attribute name="bindable" fixed="true" type="xsd:boolean"/>
+		</xsd:complexType>
+  </xsd:element>
+	<xsd:element name="TableCaption">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+  <xsd:element name="TableDimensions" >
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="my:Columns" />
+        <xsd:element ref="my:Rows" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="Columns" >
+    <xsd:complexType>
+      <xsd:attribute name="width" type="xsd:token" />
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="Rows" >
+    <xsd:complexType>
+      <xsd:attribute name="height" type="xsd:token" />
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="HtmlTableData" >
+		<xsd:complexType mixed="true">
+			<xsd:sequence>
+				<xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="TableNotes">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:TableNoteItem" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="TableNoteItem">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/1999/xhtml" processContents="lax"/>
+      </xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+    </xsd:complexType>
+    <!--
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    -->
+	</xsd:element>
+</xsd:schema>

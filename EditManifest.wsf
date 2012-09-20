@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="Windows Script Host">
+	<job>
+	  <!--
+	  <object id="ip" progid="InfoPath.Application" reference="true" />
+	  -->
+	  <object id="xml" progid="MSXML2.DOMDOCUMENT.5.0" reference="true" />
+	  <object id="fso" progid="Scripting.FileSystemObject" reference="true" />
+	  
+		<script language="JavaScript">
+		<![CDATA[
+
+    try
+    {
+      var urn = "urn:DocumentEditor:SBSA";
+      
+      WScript.Echo( "Loading manifest..." );      
+
+      var manifest = fso.GetFolder( "." ).path + "\\manifest.xsf";
+
+      xml.async = false;
+      xml.validateOnParse = false;
+      xml.load( manifest );
+
+      if( xml.parseError.errorCode != 0 )
+      {
+        throw new Error( xml.parseError.errorCode, "XML Parse Error: " + xml.parseError.reason );
+      }
+      
+      // To make the solution fully trusted we have to remove this attribute:
+      xml.documentElement.removeAttribute( "publishUrl" );
+      //
+      // Set these attributes:
+      //
+      xml.documentElement.setAttribute( "name", urn );
+      xml.documentElement.setAttribute( "requireFullTrust", "yes" );
+      //
+      xml.save( manifest );
+
+      WScript.Echo( "Loading template..." );      
+
+      var template = fso.GetFolder( "." ).path + "\\template.xml";
+
+      xml.async = false;
+      xml.validateOnParse = false;
+      xml.load( template );
+
+      if( xml.parseError.errorCode != 0 )
+      {
+        throw new Error( xml.parseError.errorCode, "XML Parse Error: " + xml.parseError.reason );
+      }
+      
+      // To make the solution fully trusted we have to remove this attribute:
+      // Set these attributes:
+      //
+      xml.documentElement.setAttribute( "href", urn );
+      //
+      xml.save( template );
+
+      WScript.Echo( "...done." );      
+		}
+		catch( e )
+		{
+      WScript.Echo( "\nException\n\t" + e.message + "\n\t0x" + toHex( e.number ) );
+      WScript.Quit( e.number );
+		}
+
+		// Convert decimal number to hexidecimal.
+		//
+    function toHex( number )
+    {
+      if( number > 0 )
+      {
+        return number.toString( 16 );
+      }
+      else
+      {
+        return( number + 0x100000000 ).toString( 16 );
+      }
+    }	
+    
+    ]]>
+		</script>
+	</job>
+</package>
+
+

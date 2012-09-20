@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.sbsa.gov.uk/XMLSYS/Handbook#1" 
+            xmlns:my="http://www.sbsa.gov.uk/XMLSYS/Handbook#1" 
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <xsd:annotation>
+    <xsd:documentation>
+      Contains types commonly used in our schemas.
+    </xsd:documentation>
+  </xsd:annotation>
+            
+  <xsd:simpleType name="HandbookType_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        This type defines the known handbook types.
+
+        0 - Domestic
+        1 - Non-domestic
+        
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:enumeration value="0" />
+      <xsd:enumeration value="1" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="ChapterType_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        This type defines the known chapter types.
+
+        0 - Introductory chapter type
+        1 - Functional Standard chapter type
+        2 - Regulation chapter type
+        3 - Section Annex chapter type
+        4 - Not applicable
+        
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:enumeration value="0" />
+      <xsd:enumeration value="1" />
+      <xsd:enumeration value="2" />
+      <xsd:enumeration value="3" />
+      <xsd:enumeration value="4" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="FormatStyle_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        This type defines the chapter format styles.
+
+        0 - Normal - Margin Reference Area + Text Area
+        1 - Wide   - Text Area Only
+        
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:enumeration value="0" />
+      <xsd:enumeration value="1" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="ChapterNo_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        Type used for section chapter numbering
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="[0-9A-Z]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="ListType_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        This type defines the known chapter types.
+
+        0 - Bullet list
+        1 - Numeric List
+        2 - Alphabetic
+        3 - Custom
+        
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:enumeration value="0" />
+      <xsd:enumeration value="1" />
+      <xsd:enumeration value="2" />
+      <xsd:enumeration value="3" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="PageBreak_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        This type defines page breaking.
+
+        0 - None - no forced page breaking applied
+        1 - Before - force a page break before item
+        2 - After - force a page break after item
+        
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:enumeration value="0" />
+      <xsd:enumeration value="1" />
+      <xsd:enumeration value="2" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="MarginReferenceType_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        This type defines the known chapter types.
+
+        0 - Sub-heading
+        1 - URL
+        
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:enumeration value="0" />
+      <xsd:enumeration value="1" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="GraphicType_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        This type defines the known graphic types.
+
+        0 - normal
+        1 - wide
+        
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:enumeration value="0" />
+      <xsd:enumeration value="1" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="Alignment_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        This type defines the known horizontal alignment values.
+
+        0 - Left
+        1 - Centre
+        2 - Right
+        
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:enumeration value="0" />
+      <xsd:enumeration value="1" />
+      <xsd:enumeration value="2" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+
+  <xsd:simpleType name="VerticalAlignment_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        This type defines the known vertical alignment values.
+
+        0 - Top
+        1 - Middle
+        2 - Bottom
+        
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:enumeration value="0" />
+      <xsd:enumeration value="1" />
+      <xsd:enumeration value="2" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+
+  <xsd:simpleType name="TableType_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        This type defines the known graphic types.
+
+        0 - normal
+        1 - wide
+        
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:enumeration value="0" />
+      <xsd:enumeration value="1" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="TableCellType_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        This type defines the known graphic types.
+
+        0 - Normal
+        
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:enumeration value="0" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="Title_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        Type used for titles.
+        All white space is collapsed.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token" />
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="NumberId_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        Type used for section,chapter,clause, numbering
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedByte"/>
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="LetterId_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        Type used for section annex numbering
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="[A-Z]"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="ContentId_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        This type is normally used as the type for required element identifiers.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token" />
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="ElementId_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        This type is normally used as the type for optional element identifiers.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token" />
+  </xsd:simpleType>
+
+  <xsd:simpleType name="DefinedTermType_t">
+    <xsd:annotation>
+      <xsd:documentation>
+        This type defines the known defined term types.
+
+        0 - Defined Term
+        1 - Regulation
+        
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:enumeration value="0"/>
+      <xsd:enumeration value="1"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+</xsd:schema>

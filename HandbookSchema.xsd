@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+            targetNamespace="http://www.sbsa.gov.uk/XMLSYS/Handbook#1"
+            xmlns:my="http://www.sbsa.gov.uk/XMLSYS/Handbook#1" >
+  <xsd:include schemaLocation="SectionSchema.xsd" />
+  <xsd:element name="Handbook">
+    <xsd:annotation>
+      <xsd:documentation>Binds sections together as a Handbook.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="my:HandbookTitle" minOccurs="0" />
+        <xsd:element ref="my:HandbookYear" minOccurs="0" />
+        <xsd:element ref="my:Sections" minOccurs="0" />
+      </xsd:sequence>
+      <xsd:attribute name="handbookId" type="my:ContentId_t" use="required" />
+    </xsd:complexType>
+  </xsd:element>
+	<xsd:element name="HandbookTitle">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="my:Title_t">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t" />
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="HandbookYear">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:gYear">
+          <xsd:attribute name="elementId" use="optional" type="my:ElementId_t" />
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Sections">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="my:Sections" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+      <xsd:attribute name="elementId" use="optional" type="my:ElementId_t" />
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
